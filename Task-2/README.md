@@ -43,7 +43,7 @@ next day’s closing price using machine learning regression models.
 
 ## 🤖 Models Applied
 - **Linear Regression**
-- **Random Forest Regressor** *(optional / if used)*
+- **Random Forest Regressor** 
 
 ---
 
@@ -83,4 +83,5 @@ stock prices remain influenced by market conditions and external factors.
 ## 📎 Submission
 This task is part of the AI/ML Internship program.  
 The complete implementation and results are available in this GitHub repository.
+
 
