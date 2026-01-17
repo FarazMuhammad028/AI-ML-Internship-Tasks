@@ -1,27 +1,46 @@
-# Heart Disease Prediction
+# Task 4 – Context-Aware RAG Chatbot
 
 ## Objective
-Predict whether a person is at risk of heart disease using health data.
+Build a context-aware conversational chatbot using **Retrieval-Augmented Generation (RAG)** with LangChain. The chatbot can:
+- Remember previous conversation history
+- Retrieve relevant information from external documents
+- Generate accurate, grounded answers
+- Be deployed interactively using Streamlit (optional)
 
 ---
 
 ## Dataset
-- **Source:** Heart Disease UCI Dataset (Kaggle)  
-- **Target:** `target` (1 = heart disease, 0 = no heart disease)  
-- **Features:** age, sex, chest_pain_type, resting_blood_pressure, cholestoral, fasting_blood_sugar, rest_ecg,Max_heart_rate,exercise_induced_angina,oldpeak,slope,vessels_colored_by_flourosopy,thalassemia,target, etc.
+- Any custom text corpus can be used (e.g., Wikipedia pages, manuals, notes)
+- Example file: `sample.txt` in the same folder as the notebook
+- The chatbot splits documents into chunks for better retrieval
 
 ---
 
-## Steps
-1. **Data Cleaning**: Handle missing values and encode categorical data.  
-2. **EDA**: Visualize and analyze trends in the data.  
-3. **Model Training**:  
-   - Logistic Regression  
-   - Decision Tree  
-4. **Evaluation**:  
-   - Accuracy  
-   - Confusion Matrix  
-   - ROC Curve / AUC  
-5. **Feature Importance**: Identify which features affect heart disease risk most.
+## Methodology / Approach
 
+1. **Document Loading**
+   - Load text documents using `TextLoader` from `langchain_community`
+   - Handle encoding safely to prevent errors (`utf-8` with fallback)
 
+2. **Document Chunking**
+   - Use `RecursiveCharacterTextSplitter` to split documents into manageable chunks
+   - Chunk size: 500 characters with 50-character overlap
+
+3. **Embeddings & Vector Store**
+   - Generate embeddings for chunks using `HuggingFaceEmbeddings`
+   - Store embeddings in **FAISS vector database** for fast retrieval
+
+4. **RAG Chatbot**
+   - Build a **ConversationalRetrievalChain** with memory
+   - Use `HuggingFacePipeline` as the LLM
+   - Retrieves relevant chunks from vector store and combines with chat history
+
+5. **Testing**
+   - Ask queries like `"What is the document about?"` to test chatbot responses
+
+---
+
+## Results
+- The chatbot is **context-aware** and provides answers grounded in the uploaded documents
+- Conversational memory allows **follow-up questions**
+- Works on **any custom corpus** provided in `.txt` format
